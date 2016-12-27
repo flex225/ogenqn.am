@@ -1,1 +1,0 @@
-# ogenqn.am
