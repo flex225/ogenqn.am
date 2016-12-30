@@ -12,35 +12,39 @@
  */
 
 Route::get('/', function () {
-     return view('welcome');
+     return view('index');
 });
 
 //Auth
 Route::get('/signup', [
-     "uses" => "\App\Http\Controllers\Auth\RegisterController@getSingUpPage",
-     "as" => "get_singup",
+     "uses" => "Auth\RegisterController@getSingUpPage",
+     "as" => "get_signup",
 ]);
 
-// Route::get('/signin', [
-//      "uses" => "\App\Http\Controllers\Auth\AuthController@getSignInPage",
-//      "as" => "get_signin",
+Route::get('/signin', [
+     "uses" => "Auth\LoginController@getSignInPage",
+     "as" => "get_signin",
+]);
 
-// ]);
+Route::get('/signout', [
+     "uses" => "Auth\LoginController@signOut",
+     "as" => "signout",
+]);
 
-// Route::get('/signout', [
-//      "uses" => "\App\Http\Controllers\Auth\AuthController@signOut",
-//      "as" => "signout",
-// ]);
+Route::post('/signup', [
+     "uses" => "Auth\RegisterController@signUp",
+     "as" => "signup",
+]);
 
-// Route::post('/signup', [
-//      "uses" => "\App\Http\Controllers\Auth\RegisterController@signUp",
-//      "as" => "signup",
-// ]);
+Route::post('/signin', [
+     "uses" => "Auth\LoginController@signIn",
+     "as" => "signin",
+]);
 
-// Route::post('/signin', [
-//      "uses" => "\App\Http\Controllers\Auth\AuthController@signIn",
-//      "as" => "signin",
-// ]);
+Route::get('/home', [
+     "uses" => "Controller@getHomePage",
+     "as" => "home",
+]);
 //Auth end
 
 Route::resource('posts', 'PostController');

@@ -57,29 +57,28 @@ class RegisterController extends Controller{
      * @param  array  $data
      * @return User
      */
-    // protected function create(array $data){
-    //     return User::create([
-    //         'name' => $data['name'],
-    //         'email' => $data['email'],
-    //         'password' => bcrypt($data['password']),
-    //     ]);
-    // }
+    protected function createUser(array $data){
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+        ]);
+    }
 
     public function getSingUpPage(){
         return view("auth.signup");
     }
 
     public function signUp(Request $request){
-        //dd($request);
-        // $this->validate($request, array(
-        //     'username' => 'required|max:255',
-        //     'password' => 'required|min:6|confirmed'
-        // ));
-        if(validator($request->all())->fails()){
-            dd(validator($request->all())->failed());
-        }else{
-        echo "esim inch";
-        }
+        $this->validate($request, array(
+            'username' => 'required|max:255',
+            'password' => 'required|min:5|confirmed'
+        ));
+        User::create([
+            'username' => $request->username,
+            'password' => bcrypt($request->password)
+        ]);
+        return redirect()->route('home');
     }
 }
     
