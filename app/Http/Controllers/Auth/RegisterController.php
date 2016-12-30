@@ -6,9 +6,9 @@ use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 
-class RegisterController extends Controller
-{
+class RegisterController extends Controller{
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -34,8 +34,7 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct(){
         $this->middleware('guest');
     }
 
@@ -45,12 +44,10 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
-    {
+    protected function validator(array $data){
         return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'username' => 'required|max:255',
+            'password' => 'required|min:6|confirmed'
         ]);
     }
 
@@ -60,12 +57,28 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return User
      */
-    protected function create(array $data)
-    {
+    protected function createUser(array $data){
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
     }
+
+    public function getSingUpPage(){
+        return view("auth.signup");
+    }
+
+    public function signUp(Request $request){
+        $this->validate($request, array(
+            'username' => 'required|max:255',
+            'password' => 'required|min:5|confirmed'
+        ));
+        User::create([
+            'username' => $request->username,
+            'password' => bcrypt($request->password)
+        ]);
+        return redirect()->route('home');
+    }
 }
+    

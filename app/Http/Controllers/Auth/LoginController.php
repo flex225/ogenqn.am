@@ -36,4 +36,16 @@ class LoginController extends Controller
     {
         $this->middleware('guest', ['except' => 'logout']);
     }
+
+    public function getSignInPage(){
+        return view("auth.signin");
+    }
+
+    public function signIn(){
+
+    }
+
+    public function signOut(){
+
+    }
 }
