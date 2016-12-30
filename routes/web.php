@@ -14,3 +14,31 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+//Auth
+Route::get('/signup', [
+	"uses" => "\App\Http\Controllers\Auth\RegisterController@getSingUpPage",
+	"as" => "get_singup"
+]);
+
+Route::get('/signin', [
+	"uses" => "\App\Http\Controllers\Auth\AuthController@getSignInPage",
+	"as" => "get_signin"
+
+]);
+
+Route::get('/signout', [
+	"uses" => "\App\Http\Controllers\Auth\AuthController@signOut",
+	"as" => "signout"
+]);
+
+Route::post('/signup', [
+	"uses" => "\App\Http\Controllers\Auth\RegisterController@signUp",
+	"as" => "signup"
+]);
+
+Route::post('/signin', [
+	"uses" => "\App\Http\Controllers\Auth\AuthController@signIn",
+	"as" => "signin"
+]);
+//Auth end
