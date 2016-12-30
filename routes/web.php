@@ -12,33 +12,38 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 //Auth
 Route::get('/signup', [
-	"uses" => "\App\Http\Controllers\Auth\RegisterController@getSingUpPage",
-	"as" => "get_singup"
+	"uses" => "Auth\RegisterController@getSingUpPage",
+	"as" => "get_signup"
 ]);
 
 Route::get('/signin', [
-	"uses" => "\App\Http\Controllers\Auth\AuthController@getSignInPage",
+	"uses" => "Auth\LoginController@getSignInPage",
 	"as" => "get_signin"
 
 ]);
 
 Route::get('/signout', [
-	"uses" => "\App\Http\Controllers\Auth\AuthController@signOut",
+	"uses" => "Auth\LoginController@signOut",
 	"as" => "signout"
 ]);
 
 Route::post('/signup', [
-	"uses" => "\App\Http\Controllers\Auth\RegisterController@signUp",
+	"uses" => "Auth\RegisterController@signUp",
 	"as" => "signup"
 ]);
 
 Route::post('/signin', [
-	"uses" => "\App\Http\Controllers\Auth\AuthController@signIn",
+	"uses" => "Auth\LoginController@signIn",
 	"as" => "signin"
 ]);
+
+Route::get('/home',[
+	"uses" => "Controller@getHomePage",
+	"as" => "home"
+	]);
 //Auth end
